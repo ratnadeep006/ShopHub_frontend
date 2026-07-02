@@ -1,0 +1,464 @@
+/* ─── Reset ─── */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Hero ─── */
+
+.hero-section {
+  background: #111111;
+  color: #ffffff;
+  padding: 90px 24px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  color: #ffffff;
+}
+
+.hero-section h1 span {
+  color: #2563eb;
+}
+
+.hero-section p {
+  font-size: 1.1rem;
+  color: #aaaaaa;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* ─── Search bar ─── */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 8px 8px 8px 16px;
+  max-width: 500px;
+  margin: 0 auto;
+  transition: border-color 0.2s;
+}
+
+.search-bar:focus-within {
+  border-color: #2563eb;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+  padding: 6px 0;
+}
+
+.search-input::placeholder {
+  color: #555555;
+}
+
+.search-btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  flex-shrink: 0;
+}
+
+.search-btn:hover {
+  background: #1d4ed8;
+}
+
+.search-btn:active {
+  transform: scale(0.97);
+}
+
+/* ─── Offer banner ─── */
+
+.offer-banner {
+  background: #2563eb;
+  color: #ffffff;
+  text-align: center;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ─── Filters ─── */
+
+.filters-section {
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #555555;
+}
+
+.filter-select {
+  padding: 7px 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  background: #ffffff;
+  color: #111111;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.filter-select:focus {
+  border-color: #2563eb;
+}
+
+.results-count {
+  margin-left: auto;
+  font-size: 13px;
+  color: #999999;
+}
+
+/* ─── Products section ─── */
+
+.products-section {
+  max-width: 1100px;
+  margin: 0 auto 60px;
+  padding: 0 24px;
+}
+
+.products-section h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111111;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* ─── Trust badges ─── */
+
+.trust-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  max-width: 1100px;
+  margin: 0 auto 60px;
+  padding: 0 24px;
+}
+
+.trust-badge {
+  text-align: center;
+  padding: 24px 16px;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  transition: border-color 0.15s;
+}
+
+.trust-badge:hover {
+  border-color: #d0d0d0;
+}
+
+.badge-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.trust-badge p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+  margin: 0;
+}
+
+.trust-badge span {
+  font-size: 12px;
+  color: #999999;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ─── Newsletter ─── */
+
+.newsletter-section {
+  background: #111111;
+  color: #ffffff;
+  text-align: center;
+  padding: 64px 24px;
+  margin: 0 0 60px;
+}
+
+.newsletter-section h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.newsletter-section p {
+  font-size: 14px;
+  color: #888888;
+  margin-bottom: 28px;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 8px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 11px 16px;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #1e1e1e;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.newsletter-form input::placeholder {
+  color: #555555;
+}
+
+.newsletter-form input:focus {
+  border-color: #2563eb;
+}
+
+.newsletter-form button {
+  padding: 11px 22px;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.newsletter-form button:hover {
+  background: #1d4ed8;
+}
+
+/* ─── Testimonials ─── */
+
+.testimonials-section {
+  max-width: 1100px;
+  margin: 0 auto 60px;
+  padding: 0 24px;
+}
+
+.testimonials-section h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111111;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.testimonial-card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #eeeeee;
+  text-align: left;
+  transition: border-color 0.15s, transform 0.2s;
+}
+
+.testimonial-card:hover {
+  border-color: #d0d0d0;
+  transform: translateY(-3px);
+}
+
+.testimonial-card .rating {
+  font-size: 14px;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.testimonial-card .text {
+  font-size: 14px;
+  color: #555555;
+  line-height: 1.65;
+  font-style: italic;
+  margin-bottom: 16px;
+}
+
+.testimonial-card .author {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.testimonial-card .author-role {
+  font-size: 12px;
+  color: #aaaaaa;
+  margin-top: 2px;
+}
+
+/* ─── Empty / loading states ─── */
+
+.empty-products {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.empty-products h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 8px;
+}
+
+.empty-products p {
+  font-size: 14px;
+  color: #999999;
+}
+
+.loading-products {
+  text-align: center;
+  padding: 80px 20px;
+  font-size: 14px;
+  color: #999999;
+}
+
+/* ─── Mobile ─── */
+
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    padding: 12px;
+    border-radius: 10px;
+    gap: 10px;
+  }
+
+  .search-btn {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .filters-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .results-count {
+    margin-left: 0;
+  }
+
+  .products {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form button {
+    width: 100%;
+  }
+
+  .trust-section {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .trust-section {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonials {
+    grid-template-columns: 1fr;
+  }
+}

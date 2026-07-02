@@ -1,0 +1,146 @@
+.checkout-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.checkout-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
+
+.checkout-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.checkout-items {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.checkout-items h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.checkout-item {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+}
+
+.checkout-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-info p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.item-price {
+  font-weight: bold;
+  color: #ff6b6b;
+}
+
+.checkout-summary {
+  background: white;
+  border: 2px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+.checkout-summary h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.summary-row.total {
+  border-bottom: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  padding: 15px 0;
+  border-top: 2px solid #ddd;
+}
+
+.free {
+  color: green;
+  font-weight: bold;
+}
+
+.place-order-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: transform 0.3s;
+}
+
+.place-order-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.place-order-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.checkout-footer {
+  margin-top: 20px;
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.checkout-footer p {
+  margin: 5px 0;
+}
+
+.empty-checkout {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.empty-checkout a {
+  display: inline-block;
+  background: #667eea;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .checkout-content {
+    grid-template-columns: 1fr;
+  }
+}
