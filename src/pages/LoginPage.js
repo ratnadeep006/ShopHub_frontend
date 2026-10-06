@@ -1,104 +1,159 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginUser, registerUser } from '../services/api';
-import '../styles/LoginPage.css';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { loginUser, registerUser } from "../services/api";
+import "../styles/LoginPage.css";
 
 function LoginPage() {
   const navigate = useNavigate();
 
-  // State for login form
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
+  // Login State
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
-  // State for register form
-  const [registerName, setRegisterName] = useState('');
-  const [registerEmail, setRegisterEmail] = useState('');
-  const [registerPassword, setRegisterPassword] = useState('');
+  // Register State
+  const [registerName, setRegisterName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
 
-  // State to toggle between login and register
+  // Toggle Login/Register
   const [isLogin, setIsLogin] = useState(true);
 
-  // Handle login submission
+  // Loading State
+  const [loading, setLoading] = useState(false);
+
+  // ================= LOGIN =================
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!loginEmail || !loginPassword) {
-      alert('Please fill in all fields');
+    if (!loginEmail.trim() || !loginPassword.trim()) {
+      toast.warning("Please fill in all fields.");
       return;
     }
 
-    const response = await loginUser(loginEmail, loginPassword);
+    try {
+      setLoading(true);
 
-    if (response.success) {
-      alert('Login successful!');
+      const response = await loginUser(loginEmail, loginPassword);
 
-      // Store user data
-      localStorage.setItem('user_id', response.data.id);
-      localStorage.setItem('username', response.data.name);
+      if (response.success) {
+        toast.success(`Welcome back, ${response.data.name}!`);
 
-      // Clear form fields
-      setLoginEmail('');
-      setLoginPassword('');
+        localStorage.setItem("user_id", response.data.id);
+        localStorage.setItem("username", response.data.name);
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("role", response.data.role);
 
-      // Redirect to home
-      navigate('/');
+        setLoginEmail("");
+        setLoginPassword("");
 
-    } else {
-      alert('Invalid email or password');
+        setTimeout(() => {
+          if (response.data.role === "admin") {
+            navigate("/admin");
+          } else {
+            navigate("/");
+          }
+        }, 1200);
+      } else {
+        toast.error(response.message || "Invalid email or password.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Unable to connect to the server.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Handle register submission
+  // ================= REGISTER =================
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (!registerName || !registerEmail || !registerPassword) {
-      alert('Please fill in all fields');
+    if (
+      !registerName.trim() ||
+      !registerEmail.trim() ||
+      !registerPassword.trim()
+    ) {
+      toast.warning("Please fill in all fields.");
       return;
     }
 
-    const response = await registerUser(registerName, registerEmail, registerPassword);
+    try {
+      setLoading(true);
 
-    if (response.success) {
-      alert('Registration successful! Now login.');
-      setRegisterName('');
-      setRegisterEmail('');
-      setRegisterPassword('');
-      setIsLogin(true);
-    } else {
-      alert('Registration failed: ' + response.message);
+      const response = await registerUser(
+        registerName,
+        registerEmail,
+        registerPassword,
+      );
+
+      if (response.success) {
+        toast.success("Registration Successful!");
+
+        setRegisterName("");
+        setRegisterEmail("");
+        setRegisterPassword("");
+
+        setTimeout(() => {
+          setIsLogin(true);
+        }, 1200);
+      } else {
+        toast.error(response.message || "Registration Failed.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Server Error.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="login-container">
       <div className="login-box">
+        <div className="login-header">
+          <h2>{isLogin ? "Welcome Back 👋" : "Create Account"}</h2>
 
-        {/* Login Form */}
+          <p>
+            {isLogin
+              ? "Login to continue shopping."
+              : "Register to start shopping."}
+          </p>
+        </div>
+
         {isLogin ? (
           <form onSubmit={handleLogin}>
-            <h2>Login</h2>
-
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Enter your email"
               value={loginEmail}
               onChange={(e) => setLoginEmail(e.target.value)}
             />
 
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Enter your password"
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
             />
 
-            <button type="submit">Login</button>
+            <div className="forgot-password-link">
+              <a href="/forgot-password" className="forgot-password-text">
+                Forgot Password?
+              </a>
+            </div>
 
-            <p>
-              Don't have account?
+            <button type="submit" disabled={loading}>
+              {loading ? "Logging In..." : "Login"}
+            </button>
+
+            <p className="switch-text">
+              Don't have an account?
               <button
                 type="button"
+                className="switch-btn"
                 onClick={() => setIsLogin(false)}
               >
                 Register
@@ -106,37 +161,37 @@ function LoginPage() {
             </p>
           </form>
         ) : (
-          /* Register Form */
           <form onSubmit={handleRegister}>
-            <h2>Register</h2>
-
             <input
               type="text"
-              placeholder="Name"
+              placeholder="Enter your name"
               value={registerName}
               onChange={(e) => setRegisterName(e.target.value)}
             />
 
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Enter your email"
               value={registerEmail}
               onChange={(e) => setRegisterEmail(e.target.value)}
             />
 
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Create a password"
               value={registerPassword}
               onChange={(e) => setRegisterPassword(e.target.value)}
             />
 
-            <button type="submit">Register</button>
+            <button type="submit" disabled={loading}>
+              {loading ? "Creating Account..." : "Register"}
+            </button>
 
-            <p>
-              Already have account?
+            <p className="switch-text">
+              Already have an account?
               <button
                 type="button"
+                className="switch-btn"
                 onClick={() => setIsLogin(true)}
               >
                 Login
@@ -144,7 +199,6 @@ function LoginPage() {
             </p>
           </form>
         )}
-
       </div>
     </div>
   );

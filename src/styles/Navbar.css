@@ -31,6 +31,11 @@
   color: #111111;
   flex-shrink: 0;
   letter-spacing: -0.02em;
+  transition: opacity 0.15s ease;
+}
+
+.navbar-logo:hover {
+  opacity: 0.8;
 }
 
 .navbar-logo span {
@@ -72,12 +77,15 @@
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-left: auto;
   flex-shrink: 0;
 }
 
+/* ─── Cart ─── */
+
 .nav-cart {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -98,6 +106,51 @@
   font-size: 14px;
 }
 
+/* ─── Wishlist ─── */
+
+.nav-wishlist {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: #555555;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-wishlist:hover {
+  background: #f5f5f5;
+  color: #111111;
+}
+
+.nav-wishlist-label {
+  font-size: 14px;
+}
+
+.nav-wishlist-count {
+  position: absolute;
+  top: 0px;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 999px;
+  line-height: 1;
+  border: 1.5px solid #ffffff;
+}
+
+/* ─── Icon buttons (profile, etc.) ─── */
+
 .nav-icon-btn {
   display: flex;
   align-items: center;
@@ -114,6 +167,8 @@
   background: #f5f5f5;
 }
 
+/* ─── Login / Logout buttons ─── */
+
 .nav-login-btn {
   display: inline-flex;
   align-items: center;
@@ -129,6 +184,26 @@
 
 .nav-login-btn:hover {
   background: #2563eb;
+}
+
+.nav-logout-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 18px;
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.nav-logout-btn:hover {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
 }
 
 /* ─── Hamburger ─── */
@@ -181,10 +256,22 @@
   border-top: 1px solid #eeeeee;
   padding: 8px 16px 16px;
   gap: 2px;
+  animation: nav-mobile-menu-in 0.18s ease;
 }
 
 .nav-mobile-menu.open {
   display: flex;
+}
+
+@keyframes nav-mobile-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .nav-mobile-menu a {
@@ -202,15 +289,44 @@
   color: #111111;
 }
 
-.mobile-login {
+.mobile-login,
+.mobile-logout {
   margin-top: 8px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 11px 12px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s;
+}
+
+.mobile-login {
   background: #111111 !important;
   color: #ffffff !important;
-  text-align: center;
 }
 
 .mobile-login:hover {
   background: #2563eb !important;
+}
+
+.mobile-logout {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.mobile-logout:hover {
+  background: #fee2e2;
+}
+
+/* ─── Accessibility: visible focus states ─── */
+
+.navbar a:focus-visible,
+.navbar button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
 }
 
 /* ─── Responsive ─── */
@@ -220,7 +336,8 @@
     display: none;
   }
 
-  .nav-cart-label {
+  .nav-cart-label,
+  .nav-wishlist-label {
     display: none;
   }
 

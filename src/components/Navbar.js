@@ -1,17 +1,38 @@
 import "../styles/Navbar.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getWishlistCount } from "../services/api";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [wishlistCount, setWishlistCount] = useState(0);
 
   // Check if user is logged in
   const user_id = localStorage.getItem("user_id");
   const isLoggedIn = !!user_id;
 
+  // Fetch wishlist count for the badge, and keep it in sync whenever
+  // a ProductCard adds/removes something from the wishlist anywhere on the site
+  useEffect(() => {
+    const fetchWishlistCount = async () => {
+      if (!user_id) return;
+      const response = await getWishlistCount(user_id);
+      if (response.success) {
+        setWishlistCount(response.count);
+      }
+    };
+
+    fetchWishlistCount();
+
+    window.addEventListener("wishlistUpdated", fetchWishlistCount);
+    return () => {
+      window.removeEventListener("wishlistUpdated", fetchWishlistCount);
+    };
+  }, [user_id]);
+
   // Logout handler
   const handleLogout = () => {
     localStorage.removeItem("user_id");
-    localStorage.removeItem("token"); // remove this line if you don't use token
+    localStorage.removeItem("token"); 
     window.location.href = "/login";
   };
 
@@ -33,6 +54,15 @@ function Navbar() {
 
         {/* Right side */}
         <div className="nav-right">
+          {isLoggedIn && (
+            <a href="/wishlist" className="nav-wishlist" aria-label="Wishlist">
+              ❤️ <span className="nav-wishlist-label">Wishlist</span>
+              {wishlistCount > 0 && (
+                <span className="nav-wishlist-count">{wishlistCount}</span>
+              )}
+            </a>
+          )}
+
           <a href="/cart" className="nav-cart" aria-label="Cart">
             🛒 <span className="nav-cart-label">Cart</span>
           </a>
@@ -70,6 +100,12 @@ function Navbar() {
         <a href="/products" onClick={() => setMenuOpen(false)}>Products</a>
         <a href="/cart" onClick={() => setMenuOpen(false)}>🛒 Cart</a>
         <a href="/orders" onClick={() => setMenuOpen(false)}>Orders</a>
+
+        {isLoggedIn && (
+          <a href="/wishlist" onClick={() => setMenuOpen(false)}>
+            ❤️ Wishlist{wishlistCount > 0 ? ` (${wishlistCount})` : ""}
+          </a>
+        )}
 
         {isLoggedIn && (
           <a href="/profile" onClick={() => setMenuOpen(false)}>👤 Profile</a>

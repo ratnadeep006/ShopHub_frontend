@@ -1,0 +1,194 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--paper);
+}
+
+.admin-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-content__body {
+  padding: 28px;
+}
+
+.admin-state {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-muted);
+  padding: 40px 0;
+  text-align: center;
+}
+
+.admin-state.error {
+  color: var(--stamp-red);
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.admin-panel {
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.admin-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-panel__title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ---- Shared table styles, used by every Admin* page ---- */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: 14px 20px;
+  font-size: 13.5px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table tr:hover td {
+  background: var(--paper);
+}
+
+.admin-mono {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+/* ---- Status badges (the "ink stamp" signature) ---- */
+.stamp {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 3px;
+  border: 1.5px solid currentColor;
+  transform: rotate(-1.5deg);
+}
+
+.stamp.pending { color: var(--mustard-dark); background: #fdf3e3; }
+.stamp.processing { color: #3a6ea5; background: #e7eef7; }
+.stamp.shipped { color: #3a6ea5; background: #e7eef7; }
+.stamp.delivered { color: var(--signal-green); background: var(--signal-green-bg); }
+.stamp.completed { color: var(--signal-green); background: var(--signal-green-bg); }
+.stamp.approved { color: var(--signal-green); background: var(--signal-green-bg); }
+.stamp.cancelled { color: var(--stamp-red); background: var(--stamp-red-bg); }
+.stamp.rejected { color: var(--stamp-red); background: var(--stamp-red-bg); }
+
+/* ---- Buttons ---- */
+.btn {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--text-inverse);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--ink-light);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+.btn-outline:hover:not(:disabled) {
+  border-color: var(--text-muted);
+}
+
+.btn-danger {
+  background: transparent;
+  border-color: var(--stamp-red);
+  color: var(--stamp-red);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: var(--stamp-red-bg);
+}
+
+.btn-success {
+  background: transparent;
+  border-color: var(--signal-green);
+  color: var(--signal-green);
+}
+
+.btn-success:hover:not(:disabled) {
+  background: var(--signal-green-bg);
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.row-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.status-select {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--paper-card);
+  color: var(--text-primary);
+}

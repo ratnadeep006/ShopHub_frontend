@@ -1,0 +1,128 @@
+/* ============================================================
+   Design tokens — shared across all Admin pages.
+   Sidebar mounts on every admin route, so these :root vars
+   are available wherever Sidebar.css is imported first.
+   ============================================================ */
+:root {
+  --ink: #14181f;
+  --ink-light: #1f2732;
+  --ink-lighter: #2a3441;
+  --paper: #f7f4ec;
+  --paper-card: #ffffff;
+  --mustard: #e3a857;
+  --mustard-dark: #c98a34;
+  --stamp-red: #c1443c;
+  --stamp-red-bg: #fbe9e7;
+  --signal-green: #3c8a5d;
+  --signal-green-bg: #e8f3ec;
+  --text-primary: #1b2430;
+  --text-muted: #6b7280;
+  --text-inverse: #f2ede1;
+  --border: #e4dfd3;
+  --border-dark: #303b4a;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --radius: 8px;
+  --shadow-card: 0 1px 2px rgba(20, 24, 31, 0.06), 0 1px 8px rgba(20, 24, 31, 0.04);
+}
+
+.admin-sidebar {
+  width: 248px;
+  min-height: 100vh;
+  background: var(--ink);
+  color: var(--text-inverse);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  font-family: var(--font-body);
+  border-right: 1px solid var(--border-dark);
+}
+
+.admin-sidebar__brand {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.admin-sidebar__brand-mark {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--text-inverse);
+}
+
+.admin-sidebar__brand-tag {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mustard);
+  margin-top: 2px;
+}
+
+.admin-sidebar__nav {
+  flex: 1;
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  color: #a9b1bf;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.admin-sidebar__link:hover {
+  background: var(--ink-light);
+  color: var(--text-inverse);
+}
+
+.admin-sidebar__link.active {
+  background: var(--ink-lighter);
+  color: var(--text-inverse);
+  border-left-color: var(--mustard);
+}
+
+.admin-sidebar__icon {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  width: 20px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.admin-sidebar__footer {
+  padding: 16px 20px 22px;
+  border-top: 1px solid var(--border-dark);
+}
+
+.admin-sidebar__logout {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border-dark);
+  color: #a9b1bf;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 12px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.admin-sidebar__logout:hover {
+  border-color: var(--stamp-red);
+  color: #f0a49e;
+}

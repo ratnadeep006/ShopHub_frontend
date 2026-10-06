@@ -1,0 +1,30 @@
+.order-id {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.filter-tab {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 7px 13px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: var(--paper-card);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.filter-tab.active {
+  background: var(--ink);
+  color: var(--text-inverse);
+  border-color: var(--ink);
+}

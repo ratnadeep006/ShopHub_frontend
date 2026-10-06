@@ -18,9 +18,10 @@ function HomePage() {
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const data = await getAllProducts();
-        setProducts(data);
-        setFilteredProducts(data);
+        const response = await getAllProducts();
+        const productsArray = response.data || []; // unwrap the array safely
+        setProducts(productsArray);
+        setFilteredProducts(productsArray);
       } catch (error) {
         console.error('Error loading products:', error);
       } finally {
@@ -51,7 +52,7 @@ function HomePage() {
 
   // Filter and sort products
   const filterAndSortProducts = (search, category, sort) => {
-    let filtered = products;
+    let filtered = [...products]; // copy, so we never mutate the original 'products' state
 
     // Search filter
     if (search) {
@@ -66,7 +67,7 @@ function HomePage() {
       filtered = filtered.filter(p => p.category_id === parseInt(category));
     }
 
-    // Sorting
+    // Sorting (safe now since 'filtered' is already a separate copy)
     switch (sort) {
       case 'price-low':
         filtered.sort((a, b) => a.price - b.price);
@@ -104,7 +105,7 @@ function HomePage() {
         <div className="hero-content">
           <h1>Welcome to ShopHub</h1>
           <p>Discover amazing products at unbeatable prices!</p>
-          
+
           {/* Search Bar */}
           <div className="search-bar">
             <input
@@ -128,8 +129,8 @@ function HomePage() {
       <div className="filters-section">
         <div className="filter-group">
           <label>Category:</label>
-          <select 
-            value={selectedCategory} 
+          <select
+            value={selectedCategory}
             onChange={(e) => handleCategoryChange(e.target.value)}
             className="filter-select"
           >
@@ -142,8 +143,8 @@ function HomePage() {
 
         <div className="filter-group">
           <label>Sort By:</label>
-          <select 
-            value={sortBy} 
+          <select
+            value={sortBy}
             onChange={(e) => handleSort(e.target.value)}
             className="filter-select"
           >

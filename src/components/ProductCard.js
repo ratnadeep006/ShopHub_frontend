@@ -1,10 +1,33 @@
+import { useState, useEffect } from 'react';
 import '../styles/ProductCard.css';
-import { Link } from 'react-router-dom';  // ← ADD THIS IMPORT
-import { addToCart } from '../services/api';
+import { Link } from 'react-router-dom';
+import {
+  addToCart,
+  addToWishlist,
+  removeFromWishlist,
+  checkWishlist,
+} from '../services/api';
 
-function ProductCard({ product }) {
+function ProductCard({ product, onRemoveFromWishlist }) {
+  const [inWishlist, setInWishlist] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+
+  const user_id = localStorage.getItem('user_id');
+
+  // Check if this product is already in the user's wishlist
+  useEffect(() => {
+    const fetchWishlistStatus = async () => {
+      if (!user_id) return;
+      const response = await checkWishlist(user_id, product.id);
+      if (response.success) {
+        setInWishlist(response.inWishlist);
+      }
+    };
+    fetchWishlistStatus();
+  }, [user_id, product.id]);
+
   const handleAddToCart = async () => {
-    const user_id = localStorage.getItem('user_id');
+    console.log("button clicked");
 
     if (!user_id) {
       alert('Please login first');
@@ -20,8 +43,46 @@ function ProductCard({ product }) {
     }
   };
 
+  const handleToggleWishlist = async (e) => {
+    // stop the click from bubbling into the <Link> that wraps the card
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!user_id) {
+      alert('Please login first');
+      return;
+    }
+
+    setWishlistLoading(true);
+    const response = inWishlist
+      ? await removeFromWishlist(user_id, product.id)
+      : await addToWishlist(user_id, product.id);
+
+    if (response.success) {
+      setInWishlist(!inWishlist);
+      if (inWishlist && onRemoveFromWishlist) {
+        onRemoveFromWishlist(product.id);
+      }
+      // Let the Navbar (and anything else listening) know the wishlist changed
+      window.dispatchEvent(new Event("wishlistUpdated"));
+    } else {
+      alert(response.message || 'Something went wrong');
+    }
+    setWishlistLoading(false);
+  };
+
   return (
     <div className="product-card">
+      {/* Wishlist button - sits on top of the image, outside the Link */}
+      <button
+        className={`product-card-wishlist-btn ${inWishlist ? 'active' : ''}`}
+        onClick={handleToggleWishlist}
+        disabled={wishlistLoading}
+        aria-label={inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+      >
+        {inWishlist ? '❤️' : '🤍'}
+      </button>
+
       {/* Link to product details */}
       <Link to={`/product/${product.id}`} className="product-link">
         <div className="product-card-image-wrap">
@@ -71,5 +132,3 @@ function ProductCard({ product }) {
 }
 
 export default ProductCard;
-
-
